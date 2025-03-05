@@ -71,6 +71,9 @@ def test(data_generator, model):
         label_ids = label.to('cpu').numpy()
         y_label = y_label + label_ids.flatten().tolist()
         y_pred = y_pred + logits.flatten().tolist()
+        # Check lengths after each batch
+        if len(y_label) != len(y_pred):
+            print(f"Batch {i}: Inconsistent lengths. y_label: {len(y_label)}, y_pred: {len(y_pred)}")
 
     loss = loss_accumulate / count
 
